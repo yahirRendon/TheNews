@@ -86,11 +86,11 @@ public final class QueryUtils {
                 jsonResponse = readFromStream(inputStream);
             } else {
                 //Log the specific error response code
-                Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
+                Log.e(LOG_TAG, "Error Response Code: " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
             //Log error retrieving results
-            Log.e(LOG_TAG, "Problem retrieving The News App JSON results.", e);
+            Log.e(LOG_TAG, "Problem retrieving JSON results.", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -120,7 +120,6 @@ public final class QueryUtils {
     //Assign and parsing extracted response
     private static List<News> extractResponseFromJson(String newsappJSON) {
         if (TextUtils.isEmpty(newsappJSON)) {
-
             return null;
         }
 
@@ -130,38 +129,26 @@ public final class QueryUtils {
         try {
 
             JSONObject baseJsonResponse = new JSONObject(newsappJSON);
-
             JSONObject newsJSONObject = baseJsonResponse.getJSONObject("response");
-
             JSONArray newsappArray = newsJSONObject.getJSONArray("results");
 
             for (int i = 0; i < newsappArray.length(); i++) {
-
                 JSONObject currentNews = newsappArray.getJSONObject(i);
-
                 String section = currentNews.getString("sectionId");
-
                 String title = currentNews.getString("webTitle");
-
                 String date = currentNews.getString("webPublicationDate");
-
                 String url = currentNews.getString("webUrl");
-
                 JSONArray authorArray = currentNews.getJSONArray("tags");
-
                 JSONObject currentAuthor = authorArray.getJSONObject(0);
-
                 String author = currentAuthor.getString("webTitle");
-
                 News newsapps = new News(title, section, date, author, url);
-
                 newsapp.add(newsapps);
             }
 
         } catch (JSONException e) {
 
             //Log error for problems parsing API requests
-            Log.e("QueryUtils", "Error parsing The News App JSON results", e);
+            Log.e("QueryUtils", "Error parsing JSON results", e);
         }
 
         return newsapp;
