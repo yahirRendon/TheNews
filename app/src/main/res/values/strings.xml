@@ -1,0 +1,8 @@
+<resources>
+    <!--App name-->
+    <string name="app_name">The News</string>
+    <!--Inform of no internet connection-->
+    <string name="no_internet_connection">No internet connection. Check internet settings</string>
+    <!--Inform no articles to load-->
+    <string name="no_articles_found">No news found. Check later.</string>
+</resources>
